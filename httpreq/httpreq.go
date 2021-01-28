@@ -3,6 +3,7 @@ package httpreq
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -31,6 +32,10 @@ func PostReq(data map[string]interface{}, url string, headers ...map[string]stri
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
 		return nil, err
 	}
 
@@ -63,6 +68,10 @@ func GetReq(data map[string]interface{}, url string, headers ...map[string]strin
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
 		return nil, err
 	}
 
