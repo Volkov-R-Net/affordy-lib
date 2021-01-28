@@ -3,11 +3,12 @@ package httpreq
 import (
 	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 )
 
-// PostReq - Use for POST requests
-func PostReq(data map[string]interface{}, url string, headers ...map[string]string) (response map[string]interface{}, err error) {
+// PostReq - Use for POST requests. Returns the request body []byte
+func PostReq(data map[string]interface{}, url string, headers ...map[string]string) (response []byte, err error) {
 
 	reqBody, err := json.Marshal(&data)
 	if err != nil {
@@ -33,16 +34,13 @@ func PostReq(data map[string]interface{}, url string, headers ...map[string]stri
 		return nil, err
 	}
 
+	result, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
-
-	var result map[string]interface{}
-	json.NewDecoder(resp.Body).Decode(&result)
-
-	return result, nil
+	return result, err
 }
 
-// GetReq - Use for GET request
-func GetReq(data map[string]interface{}, url string, headers ...map[string]string) (response map[string]interface{}, err error) {
+// GetReq - Use for GET request. Returns the request body []byte
+func GetReq(data map[string]interface{}, url string, headers ...map[string]string) (response []byte, err error) {
 
 	reqBody, err := json.Marshal(&data)
 	if err != nil {
@@ -68,10 +66,7 @@ func GetReq(data map[string]interface{}, url string, headers ...map[string]strin
 		return nil, err
 	}
 
+	result, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
-
-	var result map[string]interface{}
-	json.NewDecoder(resp.Body).Decode(&result)
-
-	return result, nil
+	return result, err
 }
