@@ -3,7 +3,6 @@ package httpreq
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -34,10 +33,10 @@ func PostReq(data map[string]interface{}, url string, headers ...map[string]stri
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != http.StatusOK {
-		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
-		return nil, err
-	}
+	//	if resp.StatusCode != http.StatusOK {
+	//		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
+	//		return nil, err
+	//	}
 
 	result, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
@@ -70,10 +69,10 @@ func GetReq(data map[string]interface{}, url string, headers ...map[string]strin
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != http.StatusOK {
-		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
-		return nil, err
-	}
+	//if resp.StatusCode != http.StatusOK {
+	//	err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
+	//	return nil, err
+	//}
 
 	result, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
