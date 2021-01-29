@@ -35,7 +35,7 @@ func PostReq(data map[string]interface{}, url string, headers ...map[string]stri
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
+		err := fmt.Errorf("HTTP error: url (%s) status: %d", url, resp.StatusCode)
 		return nil, err
 	}
 
@@ -71,7 +71,7 @@ func GetReq(data map[string]interface{}, url string, headers ...map[string]strin
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		err := fmt.Errorf(" http error: url(%s) status: %d", url, resp.StatusCode)
+		err := fmt.Errorf("HTTP error: url(%s) status: %d", url, resp.StatusCode)
 		return nil, err
 	}
 
